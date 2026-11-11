@@ -28,3 +28,10 @@ def test_judge_job_false():
 
 def test_judge_job_fake_broken():
     assert judge_job("We are seeking someone good at this industry", fake_broken) == None
+
+def fake_error(description):
+    raise ConnectionError("network is down")
+
+def test_judge_job_api_error():
+    with pytest.raises(ConnectionError):
+        judge_job("We are seeking a QA engineer.", fake_error)
